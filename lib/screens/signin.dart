@@ -26,99 +26,102 @@ class _SignInState extends State<SignIn> {
         backgroundColor: Colors.deepOrange,
         title: const Text('Create Account', style: TextStyle(color: Colors.white))
       ),
-      body:  Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-              const Text('Register', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: Form(
-                key:_formkey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        hintText: 'Email',
-                        labelText: 'Email',
-                        prefixIcon: Icon(Icons.email),
-                          border: OutlineInputBorder()
-                      ),
-                      onChanged: (String value){
-                        email = value;
-                      },
-                      validator:(value){
-                        return value!.isEmpty ? 'Enter Email' : null;
-                      },
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30),
-                      child: TextFormField(
-                        controller: passwordController,
+      body:  Container(
+        color: Colors.orange[100],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+                const Text('Register', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30),
+                child: Form(
+                  key:_formkey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: emailController,
                         keyboardType: TextInputType.emailAddress,
-                        obscureText: true,
                         decoration: const InputDecoration(
-                            hintText: 'Password',
-                            labelText: 'Password',
-                            prefixIcon: Icon(Icons.lock),
+                          hintText: 'Email',
+                          labelText: 'Email',
+                          prefixIcon: Icon(Icons.email),
                             border: OutlineInputBorder()
                         ),
                         onChanged: (String value){
-                          password = value;
+                          email = value;
                         },
                         validator:(value){
-                          return value!.isEmpty ? 'Enter Password' : null;
+                          return value!.isEmpty ? 'Enter Email' : null;
                         },
                       ),
-                    ),
 
-                    RoundButton(title: 'SignUp', onPress: ()async{
-                      if(_formkey.currentState!.validate()){
-                        try{
-                          
-                        final user = await _auth.createUserWithEmailAndPassword(email: email.toString().trim(),
-                            password: password.toString().trim());
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 30),
+                        child: TextFormField(
+                          controller: passwordController,
+                          keyboardType: TextInputType.emailAddress,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                              hintText: 'Password',
+                              labelText: 'Password',
+                              prefixIcon: Icon(Icons.lock),
+                              border: OutlineInputBorder()
+                          ),
+                          onChanged: (String value){
+                            password = value;
+                          },
+                          validator:(value){
+                            return value!.isEmpty ? 'Enter Password' : null;
+                          },
+                        ),
+                      ),
 
-                        if (user!= null){
-                          print('Success');
-                          ScaffoldMessenger.of(context).showSnackBar(
+                      RoundButton(title: 'SignUp', onPress: ()async{
+                        if(_formkey.currentState!.validate()){
+                          try{
+
+                          final user = await _auth.createUserWithEmailAndPassword(email: email.toString().trim(),
+                              password: password.toString().trim());
+
+                          if (user!= null){
+                            print('Success');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Registration Successful'),
+                                  duration: Duration(seconds: 4),
+                                  backgroundColor: Colors.deepOrange,
+                                )
+                            );
+
+                          }
+
+                          }catch(e){
+                            print(e.toString());
+                            ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Registration Successful'),
+                                content: Text('Registration failed: $e'),
                                 duration: Duration(seconds: 4),
                                 backgroundColor: Colors.deepOrange,
-                              )
-                          );
+                              ),
+                            );
+                          }
 
                         }
 
-                        }catch(e){
-                          print(e.toString());
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Registration failed: $e'),
-                              duration: Duration(seconds: 4),
-                              backgroundColor: Colors.deepOrange,
-                            ),
-                          );
-                        }
-
-                      }
-
-                    })
+                      })
 
 
 
-                  ],
-                )
-              ),
-            )
+                    ],
+                  )
+                ),
+              )
 
-          ],
+            ],
+          ),
         ),
       )
     );

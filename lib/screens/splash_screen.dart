@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:blogapp/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image(
-                image: AssetImage('images/logo.jpg'),
+                image: AssetImage('images/logo1.png'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 30),
