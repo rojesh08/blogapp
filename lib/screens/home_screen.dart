@@ -1,3 +1,4 @@
+import 'package:blogapp/services/notification_service.dart';
 import 'package:blogapp/screens/add_post.dart';
 import 'package:blogapp/screens/detail_screen.dart';
 import 'package:blogapp/screens/option_screen.dart';
@@ -21,7 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-     dbRef = FirebaseDatabase.instance.reference().child('Posts').child('Blog List');
+    dbRef = FirebaseDatabase.instance.reference().child('Posts').child('Blog List');
+
   }
 
   @override

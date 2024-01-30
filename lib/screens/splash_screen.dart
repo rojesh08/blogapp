@@ -4,6 +4,8 @@ import 'package:blogapp/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../services/firebase_service.dart';
+import '../services/notification_service.dart';
 import 'option_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,12 +17,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   FirebaseAuth auth =FirebaseAuth.instance;
+  FirebaseService firebaseService = FirebaseService();
+  NotificationServices notificationServices = NotificationServices();
   @override
 
   void initState(){
     super.initState();
     final user = auth.currentUser;
-
+    notificationServices.requestNotificationPermission();
     if(user != null){
       Timer(Duration(seconds: 1),
         ()=> Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context) => HomeScreen())));
@@ -29,6 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ()=> Navigator.push(context as BuildContext, MaterialPageRoute(builder: (context) => OptionScreen())));
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
