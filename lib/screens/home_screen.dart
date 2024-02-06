@@ -15,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+NotificationServices notificationServices = NotificationServices();
 
 class _HomeScreenState extends State<HomeScreen> {
   late DatabaseReference dbRef;
@@ -23,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     dbRef = FirebaseDatabase.instance.reference().child('Posts').child('Blog List');
-
+    notificationServices.configureFirebaseMessaging(context);
   }
 
   @override

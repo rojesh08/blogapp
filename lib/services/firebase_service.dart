@@ -46,7 +46,7 @@ class FirebaseService {
           'uId': user.uid.toString(),
         });
 
-        // You can return a result or perform additional actions if needed
+
       } else {
         throw Exception('Image upload failed');
       }
